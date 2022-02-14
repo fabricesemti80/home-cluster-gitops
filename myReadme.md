@@ -10,6 +10,8 @@
 
 [argo-repo-server](https://github.com/danmanners/argocd-sops/pkgs/container/argo-repo-server)
 
+[Store your Kubernetes Secrets in Git thanks to Kubeseal. Hello SealedSecret!](https://dev.to/stack-labs/store-your-kubernetes-secrets-in-git-thanks-to-kubeseal-hello-sealedsecret-2i6h)
+
 ## New network topology
 
 | node  | ip address   | role   |
@@ -49,3 +51,5 @@ After this we will port forward (for the time being; assuming we do not have an 
 ```sh
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
+
+## Sealed Secrets
