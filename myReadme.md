@@ -24,3 +24,5 @@
 <https://github.com/ahmetb/kubectx>
 
 <https://github.com/junegunn/fzf>
+
+## ArgoCD
