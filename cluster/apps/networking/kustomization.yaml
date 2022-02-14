@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - traefik
   # - cloudflare-ddns
-  # - external-dns
+  - external-dns
