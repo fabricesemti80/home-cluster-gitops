@@ -16,4 +16,3 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 .monokle
-cluster/manifests/**/secrets.yaml
