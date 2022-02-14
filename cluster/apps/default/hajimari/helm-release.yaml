@@ -25,7 +25,7 @@ spec:
         matchNames:
           - default
           - networking
-      name: "you"
+      name: "Fabrice"
       customApps:
         - name: Some External Cluster Service
           url: http://192.168.1.100:5000
