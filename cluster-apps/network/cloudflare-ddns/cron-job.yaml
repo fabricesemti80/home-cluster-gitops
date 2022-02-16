@@ -1,8 +1,6 @@
 ---
-# apiVersion: batch/v1
-# kind: CronJob
-apiVersion: argoproj.io/v1alpha1
-kind: CronWorkflow
+apiVersion: batch/v1
+kind: CronJob
 metadata:
   name: cloudflare-ddns
   namespace: networking
