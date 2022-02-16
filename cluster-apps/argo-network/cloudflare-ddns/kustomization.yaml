@@ -9,7 +9,7 @@ generatorOptions:
     kustomize.toolkit.fluxcd.io/substitute: disabled
   disableNameSuffixHash: true
 kind: Kustomization
-namespace: networking
+namespace: argo-network
 resources:
   - cron-job.yaml
   - secrets.sealed.yaml # secret.sops.yaml
