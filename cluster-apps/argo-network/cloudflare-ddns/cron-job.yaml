@@ -36,7 +36,7 @@ spec:
           volumes:
             - name: cloudflare-ddns
               projected:
-                defaultMode: 775
+                defaultMode: 0775
                 sources:
                   - configMap:
                       items:
