@@ -14,6 +14,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: cluster-apps/network/cloudflare-ddns
+    path: cluster-apps/argo-network/cloudflare-ddns
     repoURL: https://github.com/fabricesemti80/home-cluster-gitops.git
     targetRevision: HEAD
