@@ -11,5 +11,5 @@ generatorOptions:
 kind: Kustomization
 namespace: networking
 resources:
-  - cron-job.yaml
+  - cron-workflow.yaml # cron-job.yaml
   - secrets.sealed.yaml # secret.sops.yaml

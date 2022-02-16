@@ -2,7 +2,7 @@
 # yamllint disable
 # refernce: https://opensource.com/article/21/7/automating-argo-cd
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: CronWorkflow
 metadata:
   name: cloudflare-ddns
   namespace: networking
