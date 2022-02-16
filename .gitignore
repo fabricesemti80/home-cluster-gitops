@@ -16,3 +16,5 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 .monokle
+# Unsealed secrets
+*.unsealed.yaml

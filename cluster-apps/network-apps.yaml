@@ -1,0 +1,19 @@
+---
+# yamllint disable
+# refernce: https://opensource.com/article/21/7/automating-argo-cd
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-ddns
+  namespace: networking
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: networking
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: cluster-apps/network/cloudflare-ddns
+    repoURL: https://github.com/fabricesemti80/home-cluster-gitops.git
+    targetRevision: HEAD
