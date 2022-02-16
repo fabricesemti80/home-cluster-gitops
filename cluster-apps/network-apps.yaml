@@ -5,12 +5,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cloudflare-ddns
-  namespace: networking
+  namespace: argo-network
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: networking
+    namespace: argo-network
     server: https://kubernetes.default.svc
   project: default
   source:
