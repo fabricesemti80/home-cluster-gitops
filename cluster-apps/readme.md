@@ -11,7 +11,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: cluster-apps
-    repoURL: 'https://github.com/fabricesemti80/home-cluster-gitops.git
+    repoURL: 'https://github.com/fabricesemti80/home-cluster-gitops.git'
     targetRevision: HEAD
   project: default
   syncPolicy:
