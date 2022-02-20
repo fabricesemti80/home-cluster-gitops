@@ -5,9 +5,9 @@ set -o errexit
 ip4=$(curl -s https://ipv4.icanhazip.com/)
 record4=$(
     curl -s -X GET \
-        "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONEID/dns_records?name=$CLOUDFLARE_RECORD_NAME&type=A" \
-        -H "X-Auth-Email: $CLOUDFLARE_EMAIL" \
-        -H "X-Auth-Key: $CLOUDFLARE_APIKEY" \
+        "https://api.cloudflare.com/client/v4/zones/$SECRET_CLOUDFLARE_ZONEID/dns_records?name=$SECRET_CLOUDFLARE_RECORD_NAME&type=A" \
+        -H "X-Auth-Email: $SECRET_CLOUDFLARE_EMAIL" \
+        -H "X-Auth-Key: $SECRET_CLOUDFLARE_APIKEY" \
         -H "Content-Type: application/json"
 )
 
@@ -20,19 +20,19 @@ fi
 record4_identifier=$(echo "$record4" | sed -n 's/.*"id":"\([^"]*\).*/\1/p')
 update4=$(
     curl -s -X PUT \
-        "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONEID/dns_records/$record4_identifier" \
-        -H "X-Auth-Email: $CLOUDFLARE_EMAIL" \
-        -H "X-Auth-Key: $CLOUDFLARE_APIKEY" \
+        "https://api.cloudflare.com/client/v4/zones/$SECRET_CLOUDFLARE_ZONEID/dns_records/$record4_identifier" \
+        -H "X-Auth-Email: $SECRET_CLOUDFLARE_EMAIL" \
+        -H "X-Auth-Key: $SECRET_CLOUDFLARE_APIKEY" \
         -H "Content-Type: application/json" \
-        --data "{\"id\":\"$CLOUDFLARE_ZONEID\",\"type\":\"A\",\"proxied\":true,\"name\":\"$CLOUDFLARE_RECORD_NAME\",\"content\":\"$ip4\"}"
+        --data "{\"id\":\"$SECRET_CLOUDFLARE_ZONEID\",\"type\":\"A\",\"proxied\":true,\"name\":\"$SECRET_CLOUDFLARE_RECORD_NAME\",\"content\":\"$ip4\"}"
 )
 
 echo "---------------------------------------------------------"
 echo "Attempted update parameters:"
 echo "---------------------------------------------------------"
-echo "X-Auth-Email: $CLOUDFLARE_EMAIL"
-echo "cloudflare zone ID: $CLOUDFLARE_ZONEID"
-echo "record:  $CLOUDFLARE_RECORD_NAME"
+echo "X-Auth-Email: $SECRET_CLOUDFLARE_EMAIL"
+echo "cloudflare zone ID: $SECRET_CLOUDFLARE_ZONEID"
+echo "record:  $SECRET_CLOUDFLARE_RECORD_NAME"
 echo "current public IP: $ip4"
 echo "---------------------------------------------------------"
 echo "Actual result:"
