@@ -21,20 +21,20 @@ spec:
       interval: 5m
   values:
     interval: 5m
-    policy: upsert-only #! Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+    policy: sync #upsert-only #! Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
     logLevel: debug
     provider: cloudflare
     env:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: cloudflare-creds
-            key: email
+            name: cluster-secrets
+            key: SECRET_CLOUDFLARE_EMAIL
       - name: CF_API_KEY
         valueFrom:
           secretKeyRef:
-            name: cloudflare-creds
-            key: api-key
+            name: cluster-secrets
+            key: SECRET_CLOUDFLARE_APIKEY
     extraArgs:
       - --cloudflare-proxied
       #- --provider=cloudflare
