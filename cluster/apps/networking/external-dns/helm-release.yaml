@@ -21,7 +21,7 @@ spec:
       interval: 5m
   values:
     interval: 5m
-    policy: sync #upsert-only #! Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+    policy: sync # Modify how DNS records are synchronized between sources and providers (default: sync, options: sync, upsert-only, create-only)
     logLevel: debug
     provider: cloudflare
     env:
