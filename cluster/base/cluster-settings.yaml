@@ -5,5 +5,19 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  # For MetalLB
+  GATEWAY_ADDRESS: 192.168.1.1
   METALLB_LB_RANGE: 192.168.1.200-192.168.1.250
   METALLB_TRAEFIK_ADDR: 192.168.1.200
+  # NAS-related settings
+  NAS_SERVER: 192.168.1.3
+  NAS_PATH_MEDIA: /PersistentVolumeClaims/Media
+  NAS_PATH_MINIO: /PersistentVolumeClaims/MiniIO
+  # VPN Gateway-related settings
+  K8S_CLUSTER_CIDR: "10.42.0.0/16"
+  K8S_SERVICE_CIDR: "10.43.0.0/16"
+  NETWORK_MANAGEMENT_CIDR: "192.168.0.0/16" # LAN
+  VPN_GATEWAY_PORT: "1194"
+  VPN_PORT_QB: "56059" # only if you use QBittorrent
+  # # Plex
+  # SVC_PLEX_ADDRESS: 192.168.1.202
