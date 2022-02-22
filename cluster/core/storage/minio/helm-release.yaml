@@ -50,8 +50,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           # TODO: Add hajimari annotations to minio ingress
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          #! oauth2 #!
-          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # oauth2
           # ? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "minio"
           hajimari.io/enable: "true"

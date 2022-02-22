@@ -6,5 +6,3 @@ resources:
   - kube-system
   - networking
   - system-upgrade
-  - secret-reflector
-  - storage
