@@ -8,6 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
+      # renovate: registryUrl=https://hajimari.io
       chart: hajimari
       version: 1.2.0
       sourceRef:
@@ -25,11 +26,15 @@ spec:
         matchNames:
           - default
           - networking
+          - media
+          - tools
+          - monitoring
+          - storage
       name: "Fabrice"
-      customApps:
-        - name: Some External Cluster Service
-          url: http://192.168.1.100:5000
-          icon: test-tube
+      # customApps:
+        #- name: Some External Cluster Service
+        #  url: http://192.168.1.100:5000
+        #  icon: test-tube
       groups:
         - name: Communicate
           links:
@@ -104,10 +109,12 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "weather-sunset"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          # ? external DNS - if need to be accessed via Internet (using CloudFlare)
-          # ? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          #? external DNS - if need to be accessed via Internet (using CloudFlare)
+          #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
+          #! oauth2 #!
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
         hosts:
           - host: "hajimari.${SECRET_DOMAIN}"
             paths:
