@@ -1,0 +1,39 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dash
+  namespace: networking
+  annotations:
+    #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    #? traefik-specifics
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
+    hajimari.io/appName: "traefik-dash"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "router"
+    #? external DNS - if need to be accessed via Internet (using CloudFlare)
+    #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    external-dns/is-public: "true"
+    #! oauth2 #!
+    traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
+spec:
+  ingressClassName: "traefik"
+  tls:
+    - hosts:
+        - "traefik-dash.${SECRET_DOMAIN}"
+      #? needed for ingress!
+      secretName: "traefik-dash-tls"
+  rules:
+    - host: "traefik-dash.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000

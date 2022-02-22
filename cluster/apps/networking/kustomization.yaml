@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - traefik
   - traefik-forward-auth
+  - traefik-dashboard
   - cloudflare-ddns
   - external-dns
