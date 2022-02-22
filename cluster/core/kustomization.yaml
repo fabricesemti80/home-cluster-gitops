@@ -9,3 +9,4 @@ resources:
   - system-upgrade
   - secret-reflector
   - storage
+  - vpn-gateway
