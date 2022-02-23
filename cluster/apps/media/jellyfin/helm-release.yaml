@@ -58,7 +58,7 @@ spec:
       config:
         enabled: true
         # type: custom
-        existingClaim: jellyfin-config-v1
+        existingClaim: jellyfin-config
         # volumeSpec:
         #   nfs:
         #     server: "gypsy"
