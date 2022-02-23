@@ -66,12 +66,12 @@
       commitMessageExtra: 'to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}',
       matchUpdateTypes: ['major', 'minor', 'patch']
     },
-    // // Avoid spam via automatic merging
-    // {
-    //   description: 'Automatically merge minor and patch-level updates',
-    //   matchUpdateTypes: ['minor', 'patch', 'digest'],
-    //   automerge: true,
-    // },
+     // Avoid spam via automatic merging
+     {
+       description: 'Automatically merge minor and patch-level updates',
+       matchUpdateTypes: ['minor', 'patch', 'digest'],
+       automerge: true,
+     },
     // add labels according to package and update types
     {
       matchDatasources: ['docker'],
