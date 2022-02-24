@@ -30,6 +30,7 @@ spec:
           - tools
           - monitoring
           - storage
+          - downloads
       name: "Fabrice"
       # customApps:
         #- name: Some External Cluster Service
