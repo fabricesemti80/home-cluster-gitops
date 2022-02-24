@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - jellyfin
   - sonarr
+  - qbittorrent-vpn
