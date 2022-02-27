@@ -6,3 +6,4 @@ resources:
   - sonarr
   - qbittorrent-vpn
   - overseerr
+  - ombi
