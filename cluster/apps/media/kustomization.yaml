@@ -5,5 +5,5 @@ resources:
   - jellyfin
   - sonarr
   - qbittorrent-vpn
-  - overseerr
+  # - overseerr
   - ombi
