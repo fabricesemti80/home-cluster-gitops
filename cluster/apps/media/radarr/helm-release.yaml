@@ -43,9 +43,9 @@ spec:
           - hosts:
               - "radarr.${SECRET_DOMAIN}"
             secretName: "radarr-tls"
-    podSecurityContext:
-      supplementalGroups:
-        - 100
+    # podSecurityContext:
+    #   supplementalGroups:
+    #     - 100
     # metrics:
     #   enabled: true
     #   serviceMonitor:
