@@ -20,6 +20,7 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/radarr
       tag: v4.0.4.5922
+      pullPolicy: Always
     env:
       TZ: "Europe/London"
     ingress:
@@ -43,9 +44,9 @@ spec:
           - hosts:
               - "radarr.${SECRET_DOMAIN}"
             secretName: "radarr-tls"
-    # podSecurityContext:
-    #   supplementalGroups:
-    #     - 100
+    podSecurityContext:
+      supplementalGroups:
+        - 100
     # metrics:
     #   enabled: true
     #   serviceMonitor:
@@ -61,7 +62,7 @@ spec:
     #       port: 9794
     #       additionalMetrics: true
     #       unknownQueueItems: false
-    # persistence:
+    persistence:
       config:
         enabled: true
         existingClaim: radarr-config
