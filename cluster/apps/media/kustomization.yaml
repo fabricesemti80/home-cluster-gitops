@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - jellyfin
   - sonarr
+  - radarr
   - qbittorrent-vpn
   # - overseerr
   - ombi
