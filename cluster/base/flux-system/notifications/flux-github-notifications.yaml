@@ -6,8 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   type: github
-  address: https://github.com/Mulan-Szechuan-Sauce/house20-admin
-  token: ${SECRET_FLUX_ALERT_PAT}
+  address: https://github.com/fabricesemti80/home-cluster-gitops
+  secretRef:
+    name: flux-secret
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
