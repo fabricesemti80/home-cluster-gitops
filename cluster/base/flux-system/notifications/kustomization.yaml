@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - flux-discord-notifications.yaml
   - flux-github-notifications.yaml
-  - secret.sops.yaml
+  - github.secret.sops.yaml
+  - discord.secret.sops.yaml
