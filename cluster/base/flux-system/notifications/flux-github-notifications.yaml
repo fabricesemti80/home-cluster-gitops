@@ -1,0 +1,25 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: github
+  namespace: flux-system
+spec:
+  type: github
+  address: https://github.com/Mulan-Szechuan-Sauce/house20-admin
+  token: ${SECRET_FLUX_ALERT_PAT}
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: github-alert
+  namespace: flux-system
+spec:
+  providerRef:
+    name: github
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
