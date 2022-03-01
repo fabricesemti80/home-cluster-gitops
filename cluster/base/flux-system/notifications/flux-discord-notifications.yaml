@@ -8,7 +8,7 @@ spec:
   type: discord
   username: Flux
   channel: flux
-  address: ${SECRET_FLUX_GITHUB_TOKEN}
+  address: ${SECRET_FLUX_DISCORD_ADDRESS}
   # secretRef:
   #   name: flux-discord-secret
 ---
