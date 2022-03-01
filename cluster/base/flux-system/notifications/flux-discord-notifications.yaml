@@ -5,18 +5,11 @@ metadata:
   name: discord
   namespace: flux-system
 spec:
-  env:
-    - name: address
-      valueFrom:
-        secretKeyRef:
-          name: cluster-secrets
-          key: SECRET_FLUX_DISCORD_ADDRESS
   type: discord
   username: Flux
   channel: flux
-  # address: ${SECRET_FLUX_DISCORD_ADDRESS}
-  # secretRef:
-  #   name: flux-discord-secret
+  secretRef:
+    name: flux-discord-secret
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
