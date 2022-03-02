@@ -8,3 +8,4 @@ resources:
   - qbittorrent-vpn
   # - overseerr
   - ombi
+  - plex
