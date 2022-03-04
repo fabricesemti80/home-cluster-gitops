@@ -29,8 +29,7 @@
       fileMatch: ['cluster/.+\\.ya?ml$'],
       matchStrings: [
         // helm releases
-'registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n'
-
+        'registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n'
       ],
       datasourceTemplate: 'helm'
     },
@@ -64,14 +63,14 @@
       enabled: true,
       commitMessageTopic: 'container image {{depName}}',
       commitMessageExtra: 'to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}',
-      matchUpdateTypes: ['major', 'minor', 'patch']
+      matchUpdateTypes: ['major']
     },
-     // Avoid spam via automatic merging
-     {
-       description: 'Automatically merge minor and patch-level updates',
-       matchUpdateTypes: ['minor', 'patch', 'digest'],
-       automerge: true,
-     },
+    // Avoid spam via automatic merging - https://www.augmentedmind.de/2021/07/25/renovate-bot-cheat-sheet/
+    {
+      description: 'Automatically merge minor and patch-level updates',
+      matchUpdateTypes: ['minor', 'patch', 'digest'],
+      automerge: true
+    },
     // add labels according to package and update types
     {
       matchDatasources: ['docker'],
