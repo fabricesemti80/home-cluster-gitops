@@ -63,6 +63,7 @@ spec:
         tls:
           - hosts:
               - "qb-vpn.${SECRET_DOMAIN}"
+            secretName: "qb-vpn-tls-api"
     # metrics:
     #   enabled: true
     #   exporter:
