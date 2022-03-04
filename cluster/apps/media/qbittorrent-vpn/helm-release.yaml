@@ -49,20 +49,20 @@ spec:
               - "qb-vpn.${SECRET_DOMAIN}"
             secretName: "qb-vpn-tls"
       #? provisional >>>
-    #   api:
-    #     enabled: true
-    #     ingressClassName: "traefik"
-    #     annotations:
-    #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    #       traefik.ingress.kubernetes.io/router.middlewares: "networking-rfc1918@kubernetescrd"
-    #     hosts:
-    #       - host: "qb-vpn.${SECRET_DOMAIN}"
-    #         paths:
-    #           - path: /api
-    #             pathType: Prefix
-    #     tls:
-    #       - hosts:
-    #           - "qb-vpn.${SECRET_DOMAIN}"
+      api:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-rfc1918@kubernetescrd"
+        hosts:
+          - host: "qb-vpn.${SECRET_DOMAIN}"
+            paths:
+              - path: /api
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "qb-vpn.${SECRET_DOMAIN}"
     # metrics:
     #   enabled: true
     #   exporter:
@@ -101,7 +101,6 @@ spec:
       pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/config"]'
       post.hook.backup.velero.io/container: fsfreeze
       post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/config"]'
-      # setGateway: "true" #FIXME: replaced by useVpnGateway
     resources:
       requests:
         memory: 250Mi
