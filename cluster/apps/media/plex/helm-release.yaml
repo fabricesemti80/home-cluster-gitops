@@ -97,7 +97,7 @@ spec:
       configmap.reloader.stakater.com/reload: "plex-promtail"
     resources:
       requests:
-        cpu: 3500m #? "kubectl describe node" and check that this is under the total of the node running Plex
+        cpu: 2000m #? "kubectl describe node" and check that this is under the total of the node running Plex
         memory: 4000Mi #? "kubectl describe node" and check that this is under the total of the node running Plex
       limits:
         # gpu.intel.com/i915: 1 #TODO: will need to uncomment this after the new node added
