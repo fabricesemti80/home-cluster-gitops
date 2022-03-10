@@ -8,3 +8,4 @@ resources:
   - media.yaml
   - storage.yaml
   - vpn-gateway.yaml
+  - monitoring.yaml
