@@ -23,7 +23,7 @@ spec:
     env:
       TZ: "Europe/London"
       ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/" # "http://192.168.1.202:32400/"
-      #ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16"
+      ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16"
       PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
     podSecurityContext:
       supplementalGroups:
