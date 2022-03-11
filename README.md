@@ -8,6 +8,8 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
 
 [kubecolor](https://github.com/hidetatz/kubecolor)
 
+[k8s-at-home helm reference](https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml)
+
 ## Network topology
 
 | node  | ip address   | role   |
@@ -31,13 +33,13 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
     - cluster/base/cluster-secrets.sops.yaml
     - cluster/base/cluster-settings.yaml
 
-Most secrets come from these files, and thanks to the [reflector](https://github.com/emberstack/kubernetes-reflector) are mirrored to the relevant namespaces.
+3. Most secrets come from these files, and thanks to the [reflector](https://github.com/emberstack/kubernetes-reflector) are mirrored to the relevant namespaces.
 However currently - March 2022 - there are a a few apps that require their own separate secrets:
 
 - [vpn-gateway](https://github.com/k8s-at-home/pod-gateway) - `cluster/core/vpn-gateway`
 - [flux notifications](https://fluxcd.io/docs/guides/notifications/) - `cluster/base/flux-system/notifications`
 
-The secrets within these folders need to be manually re-created and re-encrypted (with [sops](https://github.com/mozilla/sops))
+    The secrets within these folders need to be manually re-created and re-encrypted (with [sops](https://github.com/mozilla/sops))
 
 ## Inspiration / credits
 
