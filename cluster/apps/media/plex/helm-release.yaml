@@ -1,82 +1,3 @@
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: plex
-#   namespace: media
-# spec:
-#   interval: 5m
-#   chart:
-#     spec:
-#       # renovate: registryUrl=https://k8s-at-home.com/charts/
-#       chart: plex
-#       version: 6.2.0
-#       sourceRef:
-#         kind: HelmRepository
-#         name: k8s-at-home-charts
-#         namespace: flux-system
-#       interval: 5m
-#   values:
-#     image:
-#       repository: ghcr.io/k8s-at-home/plex
-#       tag: v1.25.2.5319-c43dc0277
-#       pullPolicy: IfNotPresent
-
-#     env:
-#       TZ: "Europe/London"
-#       # ALLOWED_NETWORKS: 10.0.0.0/255.255.255.0
-#       PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
-#       PLEX_PREFERENCE_1: "FriendlyName=KingPlex"
-#     service:
-#       main:
-#         type: LoadBalancer
-#         loadBalancerIP: "${SVC_PLEX_ADDRESS}"
-#         # externalIPs:
-#         #   - 192.168.1.202 #? you can only use an external ip with calico and BGP, set a load balancer ip instead on the service
-#         externalTrafficPolicy: Local
-#         annotations:
-#           traefik.ingress.kubernetes.io/service.serversscheme: https
-#     ingress:
-#       main:
-#         enabled: true
-#         ingressClassName: "traefik"
-#         annotations:
-#           cert-manager.io/cluster-issuer: letsencrypt-production
-#           external-dns/is-public: "true"
-#           external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
-#           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-#           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#           hajimari.io/appName: "Plex"
-#           hajimari.io/enable: "true"
-#           hajimari.io/icon: "plex"
-
-    #     hosts:
-    #       - host: plex.${SECRET_DOMAIN}
-    #         paths:
-    #           - path: /
-    #             pathType: Prefix
-    #     tls:
-    #       - secretName: "plex-tls"
-    #         hosts:
-    #           - plex.${SECRET_DOMAIN}
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     existingClaim: plex-config
-    #   media:
-    #     enabled: true
-    #     type: custom
-    #     volumeSpec:
-    #       nfs:
-    #         server: "${NAS_SERVER}"
-    #         path: "${NAS_PATH_MEDIA}"
-    #     mountPath: /media
-    #     readOnly: true
-    #   transcode:
-    #     enabled: true
-    #     type: emptyDir
-    #     medium: Memory
-
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -101,9 +22,23 @@ spec:
       tag: v1.24.4.5081-e362dc1ee # v1.24.5.5173-8dcc73a59
     env:
       TZ: "Europe/London"
-      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/" # "http://192.168.1.202:32400/"
-      ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16"
+      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/,https://plex.${SECRET_DOMAIN}", # "http://192.168.1.202:32400/"      
       PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
+    extraEnv:
+      #?source: https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/
+      PLEX_PREFERENCE_1: "FriendlyName=k8splex"
+      PLEX_PREFERENCE_2: "EnableIPv6=0"
+      PLEX_PREFERENCE_3: "logDebug=0"
+      PLEX_PREFERENCE_4: "sendCrashReports=0"
+      PLEX_PREFERENCE_5: "secureConnections=1"
+      PLEX_PREFERENCE_6: "ScheduledLibraryUpdatesEnabled=1"
+      PLEX_PREFERENCE_7: "FSEventLibraryUpdatesEnabled=1"
+      PLEX_PREFERENCE_8: "FSEventLibraryPartialScanEnabled=1"
+      PLEX_PREFERENCE_9: "AcceptedEULA=1"
+      PLEX_PREFERENCE_10: "TranscoderThrottleBuffer=300" 
+      PLEX_PREFERENCE_11: "LanNetworksBandwidth=172.16.0.0/16,192.168.0.0/16,10.0.0.0/8"
+      PLEX_PREFERENCE_12: "allowedNetworks=172.16.0.0/16,192.168.0.0/16,10.0.0.0/8"
+      PLEX_PREFERENCE_13: "customConnections=https://plex.${SECRET_DOMAIN}"    
     podSecurityContext:
       supplementalGroups:
         - 44
