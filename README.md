@@ -10,6 +10,8 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
 
 [k8s-at-home helm reference](https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml)
 
+[material icons - for Hajimari](https://materialdesignicons.com/)
+
 ## Network topology
 
 | node  | ip address   | role   |
