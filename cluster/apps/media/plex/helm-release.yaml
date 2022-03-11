@@ -22,7 +22,7 @@ spec:
       tag: v1.24.4.5081-e362dc1ee # v1.24.5.5173-8dcc73a59
     env:
       TZ: "Europe/London"
-      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/,https://plex.${SECRET_DOMAIN}", # "http://192.168.1.202:32400/"      
+      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/,https://plex.${SECRET_DOMAIN}" # "http://192.168.1.202:32400/"      
       PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
     extraEnv:
       #?source: https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/
