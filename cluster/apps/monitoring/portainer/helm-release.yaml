@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: portainer
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://portainer.github.io/k8s/
+      chart: portainer
+      version: 1.0.22
+      sourceRef:
+        kind: HelmRepository
+        name: portainer-charts
+        namespace: flux-system
+      interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: traefik
+      namespace: networking
+    - name: metallb
+      namespace: metallb-system
+    - name: cert-manager
+      namespace: cert-manager
+  values:
+    image:
+      tag: 2.11.1-alpine
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "ferry"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+      hosts:
+        - host: "portainer.${SECRET_DOMAIN}"
+          paths:
+            - path: "/"
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "portainer.${SECRET_DOMAIN}"
+          secretName: "portainer-tls"
+    # service:
+    #   type: ClusterIP
+    persistence:
+      config:
+        enabled: true
+        # type: custom
+        existingClaim: portainer-config

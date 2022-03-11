@@ -43,4 +43,4 @@ However currently - March 2022 - there are a a few apps that require their own s
 
 ## Inspiration / credits
 
-TBA
+<https://github.com/spacesyl/klus>

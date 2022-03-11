@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: portainer-config
+  namespace: monitoring
+  labels:
+    kasten-io/backup: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: hdd-nfs-storage
+  resources:
+    requests:
+      storage: 5Gi
