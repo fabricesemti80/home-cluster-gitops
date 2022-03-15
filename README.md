@@ -50,7 +50,7 @@ Portainer integrates with (Google) oauth2, therefore you can add this within the
 
 To do this, when the app is deployed, log in (cretate admin account for basic auth) and enable settings > oauth.
 
-![Add a user](https://github.com/fabricesemti80/home-cluster-gitops/blob/master/hack/portainer1.png "Adding user in Portainer")
+![Add a user](hack/portainer1.png "Adding user in Portainer")
 
 Then set up oauth (you will need to have a prject in Google Cloud platform, which is outside the scope of this guide)
 
