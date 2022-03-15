@@ -56,6 +56,10 @@ Then set up oauth (you will need to have a prject in Google Cloud platform, whic
 
 ![Oauth2 settings in Portainer](hack/portainer2.png "Oauth2 settings in Portainer")
 
+(1) get these from the Google project
+
+(2) address of the server; on the project you need to add this as an allowed redirect URL!
+
 
 ## Inspiration / credits
 
