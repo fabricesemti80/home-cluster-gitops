@@ -43,6 +43,20 @@ However currently - March 2022 - there are a a few apps that require their own s
 
     The secrets within these folders need to be manually re-created and re-encrypted (with [sops](https://github.com/mozilla/sops))
 
+
+## Portainer oauth2
+
+Portainer integrates with (Google) oauth2, therefore you can add this within the ap, does not need to have the Traefik oauth frontend.
+
+To do this, when the app is deployed, log in (cretate admin account for basic auth) and enable settings > oauth.
+
+![Add a user](https://github.com/fabricesemti80/home-cluster-gitops/blob/master/hack/portainer1.png "Adding user in Portainer")
+
+Then set up oauth (you will need to have a prject in Google Cloud platform, which is outside the scope of this guide)
+
+![Oauth2 settings in Portainer](hack/portainer2.png "Oauth2 settings in Portainer")
+
+
 ## Inspiration / credits
 
 <https://github.com/spacesyl/klus>
