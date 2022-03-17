@@ -14,13 +14,13 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
 
 ## Network topology
 
-| node  | ip address   | role   |
-|-------|--------------|--------|
-| k8s-0 | 192.168.1.10 | master |
-| k8s-1 | 192.168.1.11 | master |
-| k8s-2 | 192.168.1.12 | worker |
-| k8s-3 | 192.168.1.13 | worker |
-| k8s-4 | 192.168.1.14 | worker |
+| node  | ip address   | role          |
+|-------|--------------|---------------|
+| k8s-0 | 192.168.1.10 | master        |
+| k8s-1 | 192.168.1.11 | master        |
+| k8s-2 | 192.168.1.12 | worker        |
+| k8s-3 | 192.168.1.13 | worker        |
+| k8s-4 | 192.168.1.14 | worker [plex] |
 
 ### Networking
 
