@@ -22,7 +22,7 @@ spec:
       tag: v1.24.4.5081-e362dc1ee # v1.24.5.5173-8dcc73a59
     env:
       TZ: "Europe/London"
-      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/,https://plex.${SECRET_DOMAIN}" # "http://192.168.1.202:32400/"      
+      ADVERTISE_IP: "http://${SVC_PLEX_ADDRESS}:32400/,https://plex.${SECRET_DOMAIN}" # "http://192.168.1.202:32400/"
       PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
     extraEnv:
       #?source: https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/
@@ -35,10 +35,10 @@ spec:
       PLEX_PREFERENCE_7: "FSEventLibraryUpdatesEnabled=1"
       PLEX_PREFERENCE_8: "FSEventLibraryPartialScanEnabled=1"
       PLEX_PREFERENCE_9: "AcceptedEULA=1"
-      PLEX_PREFERENCE_10: "TranscoderThrottleBuffer=300" 
+      PLEX_PREFERENCE_10: "TranscoderThrottleBuffer=300"
       PLEX_PREFERENCE_11: "LanNetworksBandwidth=172.16.0.0/16,192.168.0.0/16,10.0.0.0/8"
       PLEX_PREFERENCE_12: "allowedNetworks=172.16.0.0/16,192.168.0.0/16,10.0.0.0/8"
-      PLEX_PREFERENCE_13: "customConnections=https://plex.${SECRET_DOMAIN}"    
+      PLEX_PREFERENCE_13: "customConnections=https://plex.${SECRET_DOMAIN}"
     podSecurityContext:
       supplementalGroups:
         - 44
@@ -91,16 +91,15 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
-    #FIXME: get better hosts
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #         - matchExpressions:
-    #             - key: feature.node.kubernetes.io/custom-intel-gpu
-    #               operator: In
-    #               values:
-    #                 - "true"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/custom-intel-gpu
+                  operator: In
+                  values:
+                    - "true"
     podAnnotations:
       backup.velero.io/backup-volumes: config
       pre.hook.backup.velero.io/on-error: continue
@@ -111,10 +110,10 @@ spec:
       configmap.reloader.stakater.com/reload: "plex-promtail"
     resources:
       requests:
-        cpu: 2000m #? "kubectl describe node" and check that this is under the total of the node running Plex
+        cpu: 7000m #? "kubectl describe node" and check that this is under the total of the node running Plex
         memory: 4000Mi #? "kubectl describe node" and check that this is under the total of the node running Plex
       limits:
-        # gpu.intel.com/i915: 1 #TODO: will need to uncomment this after the new node added
+        gpu.intel.com/i915: 1 #TODO: will need to uncomment this after the new node added
         memory: 7500Mi
     #FIXME: get better hosts
     # addons:
