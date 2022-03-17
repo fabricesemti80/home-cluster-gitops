@@ -20,6 +20,7 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
 | k8s-1 | 192.168.1.11 | master |
 | k8s-2 | 192.168.1.12 | worker |
 | k8s-3 | 192.168.1.13 | worker |
+| k8s-4 | 192.168.1.14 | worker |
 
 ### Networking
 
