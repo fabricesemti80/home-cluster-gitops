@@ -21,6 +21,61 @@ For the notes regarding the template, please visit: <https://github.com/k8s-at-h
 | k8s-2 | 192.168.1.12 | worker |
 | k8s-3 | 192.168.1.13 | worker |
 
+### Networking
+
+
+Ensure that the k8s servers have the same named network interfaces (this is important for kubevip).
+
+Elevate your session
+
+```sh
+sudo su
+```
+
+Create netplan
+
+```yaml
+---
+#! /bin/bash
+var=/etc/netplan/01-network-manager-all.yaml
+cat << EOF > $var
+# Let NetworkManager manage all devices on this system
+# ref: https://askubuntu.com/questions/1317036/how-to-rename-a-network-interface-in-20-04
+# update madaddress (and add further interfaces, if you have any) accordingly
+# sudo nano /etc/netplan/01-network-manager-all.yaml
+  network:
+    version: 2
+    ethernets:
+        eth0:
+            addresses:
+            #TODO: upate this for the selected IP of the host
+            - 192.168.1.22/16
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses:
+                - 192.168.1.1
+                - 208.67.222.222
+                - 208.67.220.220
+                search: []
+            match:
+                #TODO: upate this for the active NIC of the host
+                macaddress: b0:83:fe:ba:ac:d8
+            set-name: eth0
+        # eth1:
+            # dhcp4: true
+            # match:
+                # macaddress: 2c:4d:54:65:3d:eb
+            # set-name: eth1
+EOF
+```
+Apply this config and reboot
+
+```sh
+netplan apply && reboot
+```
+
+After the system restarted, you should be able to log in with the new IP remotely.
+
 ## Addons
 
 [Kubectx](https://github.com/ahmetb/kubectx)
