@@ -9,3 +9,4 @@ resources:
   - overseerr
   # - ombi
   - plex
+  - bazarr
