@@ -21,3 +21,4 @@ data:
   VPN_PORT_QB: "18289" # "56059" # only if you use QBittorrent
   # # Plex
   SVC_PLEX_ADDRESS: 192.168.1.240
+  SVC_BLOCKY_ADDR: 192.168.1.222
