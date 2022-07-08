@@ -22,7 +22,7 @@ spec:
   test:
     enable: false
   values:
-    existingSecret: cluster-secrets
+    existingSecret: netbox-secrets
     ingress:
       main:
         enabled: true
