@@ -23,15 +23,24 @@ spec:
     enable: false
   values:
     existingSecret: netbox-secrets
+    postgresql:
+      enabled: true
+    redis:
+      enabled: true
+      auth:
+        # This is temp because the chart is broken.
+        # Really it can be plain text because.. redis auth is always a pain.
+        # But the next chart release should fix this.
+        password: "temp-12345"
+      image:
+        repository: library/redis
+        tag: "6.2.7"
     ingress:
       main:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          # hajimari.io/enable: "true"
-          # hajimari.io/icon: "netbox"
-          # hajimari.io/appName: "Netbox"
+          hajimari.io/appName: "Netbox"
           hajimari.io/enable: "true"
           hajimari.io/icon: "netbox"
           cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
@@ -47,13 +56,16 @@ spec:
         tls:
           - hosts:
               - "netbox.${SECRET_DOMAIN}"
-      annotations:
-        kubernetes.io/ingress.class: traefik
-        traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "netbox"
+      # annotations:
+      #   kubernetes.io/ingress.class: traefik
+      #   traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+      #   kubernetes.io/tls-acme: "true"
+      #   cert-manager.io/cluster-issuer: letsencrypt-production
+      #   hajimari.io/enable: "true"
+      #   hajimari.io/icon: "netbox"
     persistence:
       enabled: true
       existingClaim: "netbox-data"
+      accessMode: ReadWriteOnce
+    reportsPersistence:
+      enabled: false
