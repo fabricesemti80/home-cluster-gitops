@@ -7,5 +7,5 @@ resources:
   - traefik-dashboard
   - cloudflare-ddns
   - external-dns
-  - netbox
+  #- netbox
   #- blocky
