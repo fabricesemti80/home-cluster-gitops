@@ -5,8 +5,7 @@ metadata:
   name: netbox
   namespace: networking
 spec:
-  interval: 5m
-  timeout: 10m0s
+  releaseName: netbox
   chart:
     spec:
       # renovate: registryUrl=https://charts.boo.tc
@@ -16,72 +15,45 @@ spec:
         kind: HelmRepository
         name: bootc-charts
         namespace: flux-system
-      interval: 5m
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  test:
+    enable: false
   values:
-    image:
-      repository: netboxcommunity/netbox
-      pullPolicy: IfNotPresent
-      tag: v3.2.5
-    timeZone: Europe/London
-
-    postgresql:
-      enabled: false
-
-    redis:
-      enabled: true
-
+    existingSecret: cluster-secrets
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          # hajimari.io/enable: "true"
+          # hajimari.io/icon: "netbox"
+          # hajimari.io/appName: "Netbox"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "netbox"
+          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          # traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS # ? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          external-dns/is-public: "true"
+        hosts:
+          - host: "netbox.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "netbox.${SECRET_DOMAIN}"
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "netbox"
     persistence:
       enabled: true
-      existingClaim: netbox-config-v1
-
-    ingress:
-      enabled: true
-      className: nginx
-      annotations:
-        # kubernetes.io/tls-acme: 'true'
-        # cert-manager.io/cluster-issuer: letsencrypt-prod
-        # nginx.ingress.kubernetes.io/whitelist-source-range: 192.168.0.0/16,77.37.244.212/32,94.141.170.143/32
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "lan"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-        external-dns/is-public: "true"
-        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
-      hosts:
-        - host: "netbox.${SECRET_DOMAIN}"
-          paths:
-            - /
-      tls:
-        - secretName: netbox-tls
-          hosts:
-            - "netbox.${SECRET_DOMAIN}"
-    maxPageSize: 0
-    # remoteAuth:
-    #   enabled: false
-    #   backend: netbox.authentication.LDAPBackend
-    #   ldap:
-    #     serverUri: ldaps://ak-outpost-ldap-netbox.kube-system:636
-    #     ignoreCertErrors: true
-    #     userDnTemplate:
-    #     userSearchBaseDn: OU=users,DC=ldap,DC=goauthentik,DC=io
-    #     userSearchAttr: sAMAccountName
-    #     groupSearchBaseDn: DC=ldap,DC=goauthentik,DC=io
-    #     groupSearchClass: group
-    #     groupType: GroupOfNamesType
-    #     findGroupPerms: true
-    #     mirrorGroups: true
-    #     mirrorGroupsExcept:
-    #     cacheTimeout: 3600
-    #     requireGroupDn: ''
-    #     isAdminDn: CN=Netbox Admins,OU=groups,DC=ldap,DC=goauthentik,DC=io
-    #     isSuperUserDn: CN=Netbox SuperUsers,OU=groups,DC=ldap,DC=goauthentik,DC=io
-    #     attrFirstName: givenName
-    #     attrLastName: sn
-    #     attrMail: mail
-
-  valuesFrom:
-    - kind: Secret
-      name: netbox-helm-values
-      valuesKey: values.yaml
-      optional: false
+      existingClaim: "netbox-data"
