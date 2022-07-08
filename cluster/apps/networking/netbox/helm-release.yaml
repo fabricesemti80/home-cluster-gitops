@@ -57,3 +57,4 @@ spec:
     persistence:
       enabled: true
       existingClaim: "netbox-data"
+

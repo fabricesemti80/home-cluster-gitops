@@ -5,6 +5,6 @@ metadata:
   name: bootc-charts
   namespace: flux-system
 spec:
-  interval: 24h
+  interval: 10m
   url: https://charts.boo.tc
   timeout: 3m

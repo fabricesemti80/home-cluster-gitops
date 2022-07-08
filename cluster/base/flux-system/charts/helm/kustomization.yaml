@@ -25,3 +25,4 @@ resources:
   - weaveworks-kured-charts.yaml
   - portainer-charts.yaml
   - bootc-charts.yaml
+
