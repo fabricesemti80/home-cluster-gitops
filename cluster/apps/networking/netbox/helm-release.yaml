@@ -47,14 +47,13 @@ spec:
         tls:
           - hosts:
               - "netbox.${SECRET_DOMAIN}"
-      # annotations:
-      #   kubernetes.io/ingress.class: traefik
-      #   traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-      #   kubernetes.io/tls-acme: "true"
-      #   cert-manager.io/cluster-issuer: letsencrypt-production
-      #   hajimari.io/enable: "true"
-      #   hajimari.io/icon: "netbox"
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "netbox"
     persistence:
       enabled: true
       existingClaim: "netbox-data"
-
